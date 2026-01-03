@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astra Admin Login</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #111;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 150, 255, 0.2);
+            width: 350px;
+            border: 1px solid #333;
+        }
+        h1 {
+            text-align: center;
+            color: #3b82f6;
+            margin-bottom: 0.5rem;
+        }
+        .subtitle {
+            text-align: center;
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+        input {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #222;
+            border: 1px solid #444;
+            color: #fff;
+            border-radius: 4px;
+            box-sizing: border-box; /* Fix padding */
+        }
+        input:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+        button {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #3b82f6;
+            border: none;
+            color: #fff;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+        button:hover {
+            opacity: 0.9;
+        }
+        .hidden {
+            display: none;
+        }
+        #message {
+            text-align: center;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            min-height: 1.2rem;
+        }
+        .error { color: #ef4444; }
+        .success { color: #22c55e; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Astra Admin</h1>
+        <p class="subtitle">Secure Access Portal</p>
+        
+        <div id="message"></div>
+
+        <form id="loginForm">
+            {% csrf_token %}
+            <div id="step1">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="text" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit">Sign In</button>
+            </div>
+
+            <div id="step2" class="hidden">
+                <p style="text-align: center; color: #aaa; font-size: 0.9rem;">
+                    Enter the code from your authenticator app
+                </p>
+                <div class="form-group">
+                    <label for="code">2FA Code</label>
+                    <input type="text" id="code" name="code" placeholder="000000" maxlength="6">
+                </div>
+                <button type="button" onclick="verify2FA()">Verify</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById('loginForm');
+        const step1 = document.getElementById('step1');
+        const step2 = document.getElementById('step2');
+        const message = document.getElementById('message');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            message.textContent = '';
+            
+            const formData = new FormData(form);
+            
+            try {
+                const res = await fetch('/accounts/login/', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                    }
+                });
+                
+                const data = await res.json();
+                
+                if (data.status === 'success') {
+                    window.location.href = data.redirect;
+                } else if (data.status === '2fa_required') {
+                    step1.classList.add('hidden');
+                    step2.classList.remove('hidden');
+                } else {
+                    message.textContent = data.message;
+                    message.className = 'error';
+                }
+            } catch (err) {
+                console.error(err);
+                message.textContent = 'An error occurred';
+                message.className = 'error';
+            }
+        });
+
+        async function verify2FA() {
+            const code = document.getElementById('code').value;
+            const csrf = document.querySelector('[name=csrfmiddlewaretoken]').value;
+            
+            try {
+                const formData = new FormData();
+                formData.append('code', code);
+                
+                const res = await fetch('/accounts/login/2fa/', {
+                    method: 'POST',
+                    body: formData,
+                    headers: { 'X-CSRFToken': csrf }
+                });
+                
+                const data = await res.json();
+                
+                if (data.status === 'success') {
+                    window.location.href = data.redirect;
+                } else {
+                    message.textContent = data.message;
+                    message.className = 'error';
+                }
+            } catch (err) {
+                 message.textContent = 'Verification error';
+                 message.className = 'error';
+            }
+        }
+    </script>
+</body>
+</html>
