@@ -62,3 +62,7 @@
  Γùï Compiling / ...
  Γ£ô Compiled / in 1130ms (754 modules)
  GET / 200 in 1422ms
+ GET / 200 in 64ms
+ Γ£ô Compiled in 990ms (766 modules)
+ GET / 200 in 160ms
+ GET /admin/login 200 in 84ms
