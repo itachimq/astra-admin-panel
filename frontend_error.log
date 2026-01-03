@@ -1,0 +1,25 @@
+
+> astra-admin-panel@0.1.0 dev
+> next dev
+
+  Γû▓ Next.js 14.2.3
+  - Local:        http://localhost:3000
+
+ Γ£ô Starting...
+Error: EINVAL: invalid argument, readlink 'C:\Users\ACER\OneDrive\astra admin panel\.next\app-build-manifest.json'
+    at async Object.readlink (node:internal/fs/promises:976:10)
+    at async C:\Users\ACER\OneDrive\astra admin panel\node_modules\next\dist\lib\recursive-delete.js:58:30
+    at async Promise.all (index 0)
+    at async recursiveDelete (C:\Users\ACER\OneDrive\astra admin panel\node_modules\next\dist\lib\recursive-delete.js:51:5)
+    at async Span.traceAsyncFn (C:\Users\ACER\OneDrive\astra admin panel\node_modules\next\dist\trace\trace.js:154:20)
+    at async HotReloaderWebpack.start (C:\Users\ACER\OneDrive\astra admin panel\node_modules\next\dist\server\dev\hot-reloader-webpack.js:608:9)
+    at async startWatcher (C:\Users\ACER\OneDrive\astra admin panel\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js:156:5)
+    at async setupDevBundler (C:\Users\ACER\OneDrive\astra admin panel\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js:775:20)
+    at async Span.traceAsyncFn (C:\Users\ACER\OneDrive\astra admin panel\node_modules\next\dist\trace\trace.js:154:20)
+    at async initialize (C:\Users\ACER\OneDrive\astra admin panel\node_modules\next\dist\server\lib\router-server.js:78:30) {
+  errno: -4071,
+  code: 'EINVAL',
+  syscall: 'readlink',
+  path: 'C:\\Users\\ACER\\OneDrive\\astra admin panel\\.next\\app-build-manifest.json'
+}
+[?25h

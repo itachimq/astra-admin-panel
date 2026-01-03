@@ -1,0 +1,22 @@
+
+> astra-admin-panel@0.1.0 dev
+> next dev
+
+  Γû▓ Next.js 14.2.3
+  - Local:        http://localhost:3000
+
+ Γ£ô Starting...
+ Γ£ô Ready in 3s
+ Γùï Compiling /_not-found ...
+ Γ£ô Compiled /_not-found in 10.2s (464 modules)
+ GET / 404 in 10689ms
+ Γ£ô Compiled in 623ms (236 modules)
+ GET /login 404 in 46ms
+ GET / 404 in 52ms
+ GET /admin 404 in 51ms
+ GET /auth/login 404 in 51ms
+ GET / 404 in 47ms
+ GET / 404 in 67ms
+ Γùï Compiling /admin/login ...
+ Γ£ô Compiled /admin/login in 1096ms (478 modules)
+ GET /admin/login 200 in 1336ms
