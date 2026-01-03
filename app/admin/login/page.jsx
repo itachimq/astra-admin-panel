@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { Shield, Eye, EyeOff, Lock, Mail, AlertCircle } from 'lucide-react';
+import HexagonalBackground from '@/components/ui/HexagonalBackground';
 
 export default function AstraAdminLogin() {
     const [showPassword, setShowPassword] = useState(false);
@@ -34,40 +35,15 @@ export default function AstraAdminLogin() {
     return (
         <div className="min-h-screen w-full bg-black flex items-center justify-center p-4 relative overflow-hidden">
             {/* Animated background elements */}
+            {/* Animated background elements */}
             <div className="absolute inset-0 overflow-hidden">
-                <div
-                    className="absolute top-20 right-20 w-96 h-96 bg-green-500/5 rounded-full blur-3xl animate-pulse transition-transform duration-300 ease-out"
-                    style={{
-                        transform: `translate(${mousePosition.x * 30}px, ${mousePosition.y * 30}px)`
-                    }}
-                ></div>
-                <div
-                    className="absolute bottom-20 left-20 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl animate-pulse transition-transform duration-300 ease-out"
-                    style={{
-                        animationDelay: '1s',
-                        transform: `translate(${mousePosition.x * -20}px, ${mousePosition.y * -20}px)`
-                    }}
-                ></div>
-                <div
-                    className="absolute top-1/2 left-1/3 w-72 h-72 bg-lime-500/3 rounded-full blur-3xl transition-transform duration-500 ease-out"
-                    style={{
-                        transform: `translate(${mousePosition.x * 15}px, ${mousePosition.y * 15}px)`
-                    }}
-                ></div>
+                <HexagonalBackground mousePosition={mousePosition} />
             </div>
 
             {/* Scanline effect */}
             <div className="absolute inset-0 pointer-events-none opacity-5">
                 <div className="h-full w-full bg-gradient-to-b from-transparent via-green-500/20 to-transparent animate-scan"></div>
             </div>
-
-            {/* Grid pattern overlay */}
-            <div
-                className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAwIDEwIEwgNDAgMTAgTSAxMCAwIEwgMTAgNDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgwLDI1NSwwLDAuMDMpIiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-30 transition-transform duration-500 ease-out"
-                style={{
-                    transform: `translate(${mousePosition.x * -10}px, ${mousePosition.y * -10}px)`
-                }}
-            ></div>
 
             {/* Floating cyber elements */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
